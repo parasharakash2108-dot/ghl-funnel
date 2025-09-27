@@ -16,7 +16,7 @@ class ReactWidget extends HTMLElement {
     const container = document.createElement("div");
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = "https://ravanai-iota.vercel.app/react-widget-uv.css";
+    link.href = "https://ghl-funnel-zo1t.vercel.app/style.css";
 
     // Append the stylesheet and container to the Shadow DOM
     this.shadowRoot?.appendChild(link);
@@ -43,4 +43,4 @@ class ReactWidget extends HTMLElement {
   }
 }
 
-customElements.define("react-widget-uv", ReactWidget);
+customElements.define("react-widget-funnel", ReactWidget);

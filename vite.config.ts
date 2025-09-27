@@ -16,7 +16,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/widget.tsx'), 
       name: 'ReactWidget',
-      fileName: 'react-widget-uv',
+      fileName: 'react-widget-funnel',
       formats: ['iife'], 
     },
     rollupOptions: {
