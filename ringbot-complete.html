@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RingBot AI - Revolutionary AI Calling Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Utility Classes */
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-gradient { 
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+        }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+        .animate-slideUp { animation: slideUp 0.4s ease-out; }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+        .gradient-text {
+            background: linear-gradient(-45deg, #00D1FF, #0099cc, #00D1FF, #66e0ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s ease infinite;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #00D1FF;
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #00D1FF;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00D1FF, #0099cc);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 209, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #cccccc;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00D1FF, #0099cc);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 209, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #00D1FF;
+            padding: 1rem 2rem;
+            border: 2px solid #00D1FF;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: #00D1FF;
+            color: #000000;
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 209, 255, 0.1);
+            border-color: rgba(0, 209, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #00D1FF;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #cccccc;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 209, 255, 0.1);
+            border-color: rgba(0, 209, 255, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00D1FF, #0099cc);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-description {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 209, 255, 0.1);
+            border-color: rgba(0, 209, 255, 0.3);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00D1FF, #0099cc);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .benefit-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .benefit-description {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-stat {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #00D1FF;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00D1FF, #0099cc);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #cccccc;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-description {
+            font-size: 1.1rem;
+            color: #cccccc;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .modal-section h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #00D1FF;
+            margin-bottom: 1rem;
+        }
+
+        .modal-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-list li {
+            padding: 0.5rem 0;
+            color: #cccccc;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-list li:before {
+            content: "✓";
+            color: #00D1FF;
+            font-weight: bold;
+        }
+
+        .modal-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-stat {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 209, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 209, 255, 0.2);
+        }
+
+        .modal-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00D1FF;
+        }
+
+        .modal-stat-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-top: 0.25rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .nav { display: none; }
+            .modal-grid { grid-template-columns: 1fr; }
+            .modal-stats { grid-template-columns: 1fr 1fr; }
+            .section { padding: 3rem 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .section-title { font-size: 2rem; }
+            .modal-content { margin: 1rem; }
+            .modal-header, .modal-body { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">🤖 RingBot AI</div>
+            <nav class="nav">
+                <a href="#features">Features</a>
+                <a href="#benefits">Benefits</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a href="#" class="cta-button">Get Started Free</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="gradient-text animate-float">Revolutionary AI Calling Service</h1>
+            <p>Transform your business with AI-powered voice agents that never sleep, never miss calls, and convert leads 24/7</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn-primary">Start Free Trial</a>
+                <a href="#" class="btn-secondary">Watch Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section">
+        <div class="stats-grid">
+            <div class="stat-card" onclick="openModal('humanVoice')">
+                <div class="stat-number">99.7%</div>
+                <div class="stat-label">Human-like AI Voice Agents</div>
+            </div>
+            <div class="stat-card" onclick="openModal('leadQual')">
+                <div class="stat-number">340%</div>
+                <div class="stat-label">Lead Qualification Improvement</div>
+            </div>
+            <div class="stat-card" onclick="openModal('appointment')">
+                <div class="stat-number">96.2%</div>
+                <div class="stat-label">Appointment Booking Success</div>
+            </div>
+            <div class="stat-card" onclick="openModal('callTransfer')">
+                <div class="stat-number">98.7%</div>
+                <div class="stat-label">Successful Call Transfers</div>
+            </div>
+            <div class="stat-card" onclick="openModal('analytics')">
+                <div class="stat-number">75+</div>
+                <div class="stat-label">Real-time Analytics Points</div>
+            </div>
+            <div class="stat-card" onclick="openModal('multilang')">
+                <div class="stat-number">28+</div>
+                <div class="stat-label">Languages Supported</div>
+            </div>
+            <div class="stat-card" onclick="openModal('availability')">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Always Available Service</div>
+            </div>
+            <div class="stat-card" onclick="openModal('localNumbers')">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Local Area Codes</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Benefits Section -->
+    <section class="section" id="benefits">
+        <h2 class="section-title gradient-text">Key Benefits</h2>
+        <p class="section-subtitle">Discover how RingBot AI transforms your business operations</p>
+        <div class="benefits-grid">
+            <div class="benefit-card" onclick="openModal('neverMiss')">
+                <div class="benefit-icon">📞</div>
+                <h3 class="benefit-title">Never Miss Another Call</h3>
+                <p class="benefit-description">100% call coverage with unlimited capacity and intelligent routing</p>
+                <div class="benefit-stat">$47K+ Monthly Revenue Saved</div>
+            </div>
+            <div class="benefit-card" onclick="openModal('instantBook')">
+                <div class="benefit-icon">⚡</div>
+                <h3 class="benefit-title">Instant Appointment Booking</h3>
+                <p class="benefit-description">AI agents book appointments in real-time with 96.2% success rate</p>
+                <div class="benefit-stat">47 Seconds Average Booking</div>
+            </div>
+            <div class="benefit-card" onclick="openModal('saveCosts')">
+                <div class="benefit-icon">💰</div>
+                <h3 class="benefit-title">Massive Cost Savings</h3>
+                <p class="benefit-description">Reduce operational costs by up to 73% while improving service quality</p>
+                <div class="benefit-stat">$2,847 Average Monthly Savings</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Everything You Need Section -->
+    <section class="section">
+        <h2 class="section-title gradient-text">Everything You Need</h2>
+        <p class="section-subtitle">Complete AI calling solution with enterprise-grade features</p>
+        <div class="features-grid">
+            <div class="feature-card" onclick="openModal('security')">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Enterprise-Grade Security</h3>
+                <p class="feature-description">Military-grade encryption, SOC 2 compliance, and GDPR compliant data protection</p>
+            </div>
+            <div class="feature-card" onclick="openModal('setup')">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Lightning-Fast Setup</h3>
+                <p class="feature-description">Get started in under 4 minutes with zero technical skills required</p>
+            </div>
+            <div class="feature-card" onclick="openModal('support')">
+                <div class="feature-icon">🎧</div>
+                <h3 class="feature-title">Dedicated Expert Support</h3>
+                <p class="feature-description">24/7 support with <90 second response times and dedicated account managers</p>
+            </div>
+            <div class="feature-card" onclick="openModal('realTimeAnalytics')">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Real-time Analytics & Insights</h3>
+                <p class="feature-description">Comprehensive analytics with 75+ data points and predictive insights</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Overlays -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content animate-slideUp" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-icon" id="modal-icon">🤖</div>
+                    <span id="modal-title-text">Modal Title</span>
+                </div>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body-content">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal data
+        const modalData = {
+            humanVoice: {
+                icon: '🎤',
+                title: 'Human-like AI Voice Agents',
+                description: 'Our advanced neural voice synthesis technology creates incredibly natural-sounding AI agents that are virtually indistinguishable from human representatives. With emotional intelligence and contextual understanding, they provide exceptional customer experiences.',
+                features: [
+                    'Advanced neural voice synthesis technology',
+                    '25+ premium voice options with regional accents',
+                    'Emotional intelligence and sentiment recognition',
+                    'Natural conversation flow with contextual memory',
+                    'Real-time voice modulation and tone adjustment',
+                    'Multi-generational voice profiles (young, mature, senior)',
+                    'Industry-specific vocabulary and terminology',
+                    'Seamless integration with existing phone systems'
+                ],
+                benefits: [
+                    'Indistinguishable from human representatives',
+                    'Consistent professional communication quality',
+                    'No bad days, sick days, or mood variations',
+                    'Perfect pronunciation and clear articulation',
+                    'Customizable personality and communication style',
+                    'Instant language switching capabilities',
+                    'Zero training time for new voice profiles',
+                    'Scalable across unlimited concurrent calls'
+                ],
+                stats: [
+                    { number: '99.7%', label: 'Human-like Quality' },
+                    { number: '25+', label: 'Voice Options' },
+                    { number: '47', label: 'Languages' },
+                    { number: '0.3s', label: 'Response Time' },
+                    { number: '94%', label: 'Customer Satisfaction' },
+                    { number: '100%', label: 'Consistency Rate' }
+                ]
+            },
+            leadQual: {
+                icon: '🎯',
+                title: 'Advanced Lead Qualification',
+                description: 'Intelligent lead scoring and qualification system that evaluates prospects using 50+ criteria, behavioral analysis, and predictive modeling to identify high-value opportunities and optimize conversion rates.',
+                features: [
+                    'Advanced lead scoring with 50+ qualification criteria',
+                    'Behavioral analysis and engagement tracking',
+                    'Predictive modeling for conversion probability',
+                    'Real-time CRM integration and data synchronization',
+                    'Custom qualification workflows and decision trees',
+                    'Automated follow-up scheduling and nurturing',
+                    'Lead source attribution and ROI tracking',
+                    'Integration with popular CRM platforms'
+                ],
+                benefits: [
+                    '340% improvement in lead qualification accuracy',
+                    'Reduced sales cycle time by 45%',
+                    'Higher quality leads passed to sales teams',
+                    'Automated lead nurturing and follow-up',
+                    'Comprehensive lead intelligence and insights',
+                    'Elimination of manual qualification processes',
+                    'Improved sales team productivity and focus',
+                    'Better resource allocation and prioritization'
+                ],
+                stats: [
+                    { number: '340%', label: 'Qualification Improvement' },
+                    { number: '50+', label: 'Scoring Criteria' },
+                    { number: '87%', label: 'Accuracy Rate' },
+                    { number: '45%', label: 'Faster Sales Cycle' },
+                    { number: '92%', label: 'Lead Quality Score' },
+                    { number: '24/7', label: 'Qualification Active' }
+                ]
+            },
+            appointment: {
+                icon: '📅',
+                title: 'Intelligent Appointment Booking',
+                description: 'Smart scheduling system with real-time calendar integration, conflict resolution, and automated confirmation processes. Achieves 96.2% booking success rate with average booking time of just 47 seconds.',
+                features: [
+                    'Real-time calendar synchronization across platforms',
+                    'Intelligent conflict detection and resolution',
+                    'Automated appointment confirmation and reminders',
+                    'Multi-timezone scheduling and coordination',
+                    'Custom booking rules and availability windows',
+                    'Integration with Google, Outlook, and other calendars',
+                    'Automated rescheduling and cancellation handling',
+                    'Buffer time management and travel time consideration'
+                ],
+                benefits: [
+                    '96.2% appointment booking success rate',
+                    '47-second average booking completion time',
+                    'Zero double-booking incidents',
+                    'Automated reminder system reduces no-shows by 73%',
+                    '24/7 booking availability increases conversions',
+                    'Seamless integration with existing workflows',
+                    'Reduced administrative overhead and manual work',
+                    'Improved customer satisfaction and convenience'
+                ],
+                stats: [
+                    { number: '96.2%', label: 'Booking Success Rate' },
+                    { number: '47s', label: 'Average Booking Time' },
+                    { number: '73%', label: 'No-Show Reduction' },
+                    { number: '0', label: 'Double Bookings' },
+                    { number: '24/7', label: 'Availability' },
+                    { number: '15+', label: 'Calendar Integrations' }
+                ]
+            },
+            callTransfer: {
+                icon: '📞',
+                title: 'Smart Call Transfers',
+                description: 'Intelligent call routing system with warm transfers, context preservation, and skill-based routing. Ensures seamless handoffs with 98.7% successful transfer rate and complete conversation context.',
+                features: [
+                    'Intelligent routing based on agent skills and availability',
+                    'Warm transfer with complete context preservation',
+                    'Real-time agent status monitoring and queue management',
+                    'Priority routing for VIP customers and urgent calls',
+                    'Automated callback scheduling for busy agents',
+                    'Call recording and transcription for quality assurance',
+                    'Integration with existing phone systems and PBX',
+                    'Advanced call analytics and performance tracking'
+                ],
+                benefits: [
+                    '98.7% successful call transfer rate',
+                    'Complete conversation context preserved',
+                    'Reduced customer frustration and repeat explanations',
+                    'Optimal agent utilization and workload distribution',
+                    'Faster resolution times with skilled agent matching',
+                    'Improved customer satisfaction scores',
+                    'Enhanced agent productivity and efficiency',
+                    'Comprehensive call tracking and analytics'
+                ],
+                stats: [
+                    { number: '98.7%', label: 'Transfer Success Rate' },
+                    { number: '100%', label: 'Context Preservation' },
+                    { number: '23s', label: 'Average Transfer Time' },
+                    { number: '94%', label: 'Customer Satisfaction' },
+                    { number: '67%', label: 'First Call Resolution' },
+                    { number: '0', label: 'Lost Calls' }
+                ]
+            },
+            analytics: {
+                icon: '📊',
+                title: 'Comprehensive Call Analytics',
+                description: 'Advanced analytics platform providing 75+ data points, real-time insights, sentiment analysis, and predictive modeling. Includes comprehensive reporting, compliance monitoring, and performance optimization tools.',
+                features: [
+                    'Real-time dashboard with 75+ key performance indicators',
+                    'Advanced sentiment analysis and emotion detection',
+                    'Call recording, transcription, and keyword analysis',
+                    'Predictive analytics and trend identification',
+                    'Custom reporting and automated insights delivery',
+                    'Compliance monitoring and quality assurance',
+                    'Integration with business intelligence platforms',
+                    'Mobile app for on-the-go analytics access'
+                ],
+                benefits: [
+                    'Complete visibility into call performance and outcomes',
+                    'Data-driven decision making and optimization',
+                    'Improved agent training and performance management',
+                    'Enhanced customer experience through insights',
+                    'Compliance assurance and risk mitigation',
+                    'ROI tracking and business impact measurement',
+                    'Automated reporting saves 15+ hours weekly',
+                    'Predictive insights for proactive improvements'
+                ],
+                stats: [
+                    { number: '75+', label: 'Analytics Data Points' },
+                    { number: '99.8%', label: 'Data Accuracy' },
+                    { number: '15+', label: 'Hours Saved Weekly' },
+                    { number: '100%', label: 'Call Recording' },
+                    { number: '24/7', label: 'Real-time Monitoring' },
+                    { number: '50+', label: 'Custom Reports' }
+                ]
+            },
+            multilang: {
+                icon: '🌍',
+                title: 'Multi-language Support',
+                description: 'Comprehensive language support covering 28+ languages with native pronunciation, cultural awareness, and regional dialects. Includes real-time translation and localized conversation flows.',
+                features: [
+                    'Native-level pronunciation in 28+ languages',
+                    'Cultural awareness and localized conversation patterns',
+                    'Real-time language detection and switching',
+                    'Regional dialect and accent variations',
+                    'Industry-specific terminology in multiple languages',
+                    'Seamless translation and interpretation services',
+                    'Localized number formats, dates, and currencies',
+                    'Cultural sensitivity training and compliance'
+                ],
+                benefits: [
+                    'Expand market reach to global audiences',
+                    'Eliminate language barriers in customer service',
+                    'Consistent quality across all supported languages',
+                    'Cultural sensitivity improves customer relationships',
+                    'Reduced need for multilingual human agents',
+                    'Cost-effective international expansion',
+                    '24/7 support in customers\' native languages',
+                    'Improved conversion rates in international markets'
+                ],
+                stats: [
+                    { number: '28+', label: 'Languages Supported' },
+                    { number: '150+', label: 'Regional Dialects' },
+                    { number: '99.2%', label: 'Translation Accuracy' },
+                    { number: '0.5s', label: 'Language Switch Time' },
+                    { number: '95%', label: 'Cultural Accuracy' },
+                    { number: '24/7', label: 'Global Coverage' }
+                ]
+            },
+            availability: {
+                icon: '🕐',
+                title: '24/7 Availability',
+                description: 'Round-the-clock service with 99.99% uptime guarantee, global coverage, and intelligent load balancing. Never miss opportunities with continuous operation and emergency handling capabilities.',
+                features: [
+                    '99.99% uptime guarantee with redundant systems',
+                    'Global infrastructure with multiple data centers',
+                    'Intelligent load balancing and traffic distribution',
+                    'Emergency escalation and priority handling',
+                    'Automated failover and disaster recovery',
+                    'Real-time system monitoring and health checks',
+                    'Scalable capacity for peak traffic periods',
+                    'Maintenance windows with zero service interruption'
+                ],
+                benefits: [
+                    'Never miss calls or opportunities, day or night',
+                    'Capture leads from different time zones globally',
+                    'Consistent service quality at all hours',
+                    'Emergency support and critical issue handling',
+                    'Competitive advantage with always-on availability',
+                    'Improved customer satisfaction and loyalty',
+                    'Revenue generation during off-hours',
+                    'Peace of mind with reliable service'
+                ],
+                stats: [
+                    { number: '99.99%', label: 'Uptime Guarantee' },
+                    { number: '24/7', label: 'Service Hours' },
+                    { number: '365', label: 'Days Per Year' },
+                    { number: '0', label: 'Planned Downtime' },
+                    { number: '5', label: 'Global Data Centers' },
+                    { number: '<30s', label: 'Failover Time' }
+                ]
+            },
+            localNumbers: {
+                icon: '📱',
+                title: 'Local Numbers',
+                description: 'Access to 150+ local area codes with instant setup, voicemail transcription, and automated callback features. Increase answer rates by 73% with local presence in key markets.',
+                features: [
+                    'Access to 150+ local area codes nationwide',
+                    'Instant number provisioning and activation',
+                    'Intelligent voicemail transcription and analysis',
+                    'Automated callback scheduling and management',
+                    'Call forwarding and routing customization',
+                    'SMS and MMS capabilities for text communication',
+                    'Number porting from existing providers',
+                    'Vanity number options and custom selections'
+                ],
+                benefits: [
+                    '73% higher answer rates with local presence',
+                    'Improved trust and credibility with local numbers',
+                    'Better market penetration in target regions',
+                    'Reduced long-distance charges and costs',
+                    'Enhanced local marketing and advertising effectiveness',
+                    'Seamless integration with existing phone systems',
+                    'Professional appearance in all target markets',
+                    'Flexible number management and organization'
+                ],
+                stats: [
+                    { number: '150+', label: 'Area Codes Available' },
+                    { number: '73%', label: 'Higher Answer Rates' },
+                    { number: '<5min', label: 'Setup Time' },
+                    { number: '100%', label: 'Transcription Accuracy' },
+                    { number: '24/7', label: 'Number Availability' },
+                    { number: '0', label: 'Setup Fees' }
+                ]
+            },
+            neverMiss: {
+                icon: '📞',
+                title: 'Never Miss Another Call',
+                description: 'Comprehensive call coverage solution ensuring 100% call capture with unlimited capacity, intelligent overflow handling, and revenue recovery systems. Save an average of $47,000+ monthly in missed opportunities.',
+                features: [
+                    '100% call coverage with unlimited concurrent capacity',
+                    'Intelligent overflow and queue management',
+                    'Automated callback scheduling for missed calls',
+                    'Priority routing for VIP and returning customers',
+                    'Real-time capacity monitoring and scaling',
+                    'Integration with existing phone systems and PBX',
+                    'Advanced call analytics and missed call reporting',
+                    'Emergency escalation and critical call handling'
+                ],
+                benefits: [
+                    'Zero missed calls means zero missed opportunities',
+                    'Average $47,000+ monthly revenue recovery',
+                    'Improved customer satisfaction and loyalty',
+                    'Competitive advantage with superior availability',
+                    'Reduced customer churn from missed calls',
+                    'Enhanced brand reputation and reliability',
+                    'Peace of mind with guaranteed call coverage',
+                    'Scalable solution grows with your business'
+                ],
+                stats: [
+                    { number: '100%', label: 'Call Coverage' },
+                    { number: '$47K+', label: 'Monthly Revenue Saved' },
+                    { number: '0', label: 'Missed Opportunities' },
+                    { number: '∞', label: 'Concurrent Capacity' },
+                    { number: '99.99%', label: 'System Reliability' },
+                    { number: '24/7', label: 'Coverage Hours' }
+                ]
+            },
+            instantBook: {
+                icon: '⚡',
+                title: 'Instant Appointment Booking',
+                description: 'Lightning-fast appointment scheduling with 96.2% success rate and 47-second average booking time. Advanced AI handles complex scheduling scenarios, conflicts, and customer preferences automatically.',
+                features: [
+                    'Real-time calendar integration and synchronization',
+                    'Intelligent conflict detection and resolution',
+                    'Multi-timezone scheduling and coordination',
+                    'Automated confirmation and reminder systems',
+                    'Custom booking rules and availability windows',
+                    'Integration with popular calendar platforms',
+                    'Buffer time and travel time consideration',
+                    'Rescheduling and cancellation management'
+                ],
+                benefits: [
+                    '96.2% appointment booking success rate',
+                    '47-second average booking completion time',
+                    'Capture appointments 24/7 without human intervention',
+                    '73% reduction in no-shows with automated reminders',
+                    'Improved customer convenience and satisfaction',
+                    'Reduced administrative overhead and costs',
+                    'Seamless integration with existing workflows',
+                    'Increased revenue through better scheduling efficiency'
+                ],
+                stats: [
+                    { number: '96.2%', label: 'Booking Success Rate' },
+                    { number: '47s', label: 'Average Booking Time' },
+                    { number: '73%', label: 'No-Show Reduction' },
+                    { number: '24/7', label: 'Booking Availability' },
+                    { number: '0', label: 'Double Bookings' },
+                    { number: '15+', label: 'Calendar Integrations' }
+                ]
+            },
+            saveCosts: {
+                icon: '💰',
+                title: 'Massive Cost Savings',
+                description: 'Achieve up to 73% reduction in operational costs while improving service quality. Average savings of $2,847 monthly through automation, efficiency improvements, and reduced staffing requirements.',
+                features: [
+                    'Automated call handling reduces staffing needs',
+                    'Elimination of overtime and holiday pay costs',
+                    'Reduced training and onboarding expenses',
+                    'Lower infrastructure and equipment costs',
+                    'Decreased employee turnover and recruitment costs',
+                    'Automated processes reduce manual work',
+                    'Scalable pricing based on actual usage',
+                    'ROI tracking and cost analysis reporting'
+                ],
+                benefits: [
+                    'Up to 73% reduction in operational costs',
+                    'Average monthly savings of $2,847',
+                    'Improved service quality at lower costs',
+                    'Predictable monthly expenses with transparent pricing',
+                    'Elimination of hidden costs and surprise bills',
+                    'Better resource allocation and budget planning',
+                    'Faster ROI realization and payback period',
+                    'Competitive advantage through cost efficiency'
+                ],
+                stats: [
+                    { number: '73%', label: 'Cost Reduction' },
+                    { number: '$2,847', label: 'Average Monthly Savings' },
+                    { number: '6.2x', label: 'ROI Multiple' },
+                    { number: '3.4mo', label: 'Payback Period' },
+                    { number: '89%', label: 'Efficiency Improvement' },
+                    { number: '$0', label: 'Hidden Fees' }
+                ]
+            },
+            security: {
+                icon: '🔒',
+                title: 'Enterprise-Grade Security',
+                description: 'Military-grade encryption, SOC 2 Type II compliance, and comprehensive data protection. Advanced threat detection, secure data handling, and regulatory compliance ensure your business and customer data stays protected.',
+                features: [
+                    'Military-grade AES-256 encryption for all data',
+                    'SOC 2 Type II compliance and certification',
+                    'GDPR, CCPA, and HIPAA compliance capabilities',
+                    'Advanced threat detection and prevention',
+                    'Secure API endpoints with OAuth 2.0 authentication',
+                    'Regular security audits and penetration testing',
+                    'Data residency options and geographic controls',
+                    '24/7 security monitoring and incident response'
+                ],
+                benefits: [
+                    'Complete protection of sensitive customer data',
+                    'Regulatory compliance reduces legal risks',
+                    'Enhanced customer trust and confidence',
+                    'Secure integration with existing systems',
+                    'Protection against data breaches and cyber threats',
+                    'Audit-ready documentation and reporting',
+                    'Peace of mind with enterprise-grade security',
+                    'Competitive advantage with security leadership'
+                ],
+                stats: [
+                    { number: '256-bit', label: 'AES Encryption' },
+                    { number: 'SOC 2', label: 'Type II Certified' },
+                    { number: '99.99%', label: 'Security Uptime' },
+                    { number: '0', label: 'Data Breaches' },
+                    { number: '24/7', label: 'Security Monitoring' },
+                    { number: '100%', label: 'Compliance Rate' }
+                ]
+            },
+            setup: {
+                icon: '⚡',
+                title: 'Lightning-Fast Setup',
+                description: 'Get started in just 3.7 minutes with our streamlined onboarding process. Zero technical skills required with one-click integrations, automated configuration, and instant activation.',
+                features: [
+                    'Streamlined 3.7-minute average setup process',
+                    'One-click integrations with popular platforms',
+                    'Automated system configuration and optimization',
+                    'Pre-built templates for common use cases',
+                    'Guided setup wizard with step-by-step instructions',
+                    'Instant activation and immediate service availability',
+                    'Bulk import tools for existing data and contacts',
+                    'Migration assistance from existing systems'
+                ],
+                benefits: [
+                    'Start generating value in under 4 minutes',
+                    'No technical expertise or IT support required',
+                    'Immediate ROI with instant activation',
+                    'Reduced implementation costs and complexity',
+                    'Faster time-to-market for new initiatives',
+                    'Seamless transition from existing systems',
+                    'Minimal business disruption during setup',
+                    'Quick wins and early success demonstration'
+                ],
+                stats: [
+                    { number: '3.7min', label: 'Average Setup Time' },
+                    { number: '0', label: 'Technical Skills Required' },
+                    { number: '1-click', label: 'Integration Setup' },
+                    { number: '100%', label: 'Success Rate' },
+                    { number: '<1hr', label: 'Full Deployment' },
+                    { number: '24/7', label: 'Setup Support' }
+                ]
+            },
+            support: {
+                icon: '🎧',
+                title: 'Dedicated Expert Support',
+                description: '24/7 world-class support with <90-second response times, dedicated account managers, and expert technical assistance. Comprehensive onboarding, training, and ongoing optimization support.',
+                features: [
+                    '24/7 support availability with global coverage',
+                    '<90-second average response time guarantee',
+                    'Dedicated account managers for enterprise clients',
+                    'Expert technical support and troubleshooting',
+                    'Comprehensive onboarding and training programs',
+                    'Regular optimization reviews and recommendations',
+                    'Priority escalation for critical issues',
+                    'Multi-channel support (phone, email, chat, video)'
+                ],
+                benefits: [
+                    'Immediate assistance when you need it most',
+                    'Expert guidance for optimal system performance',
+                    'Proactive support prevents issues before they occur',
+                    'Dedicated relationship management and advocacy',
+                    'Faster problem resolution and minimal downtime',
+                    'Continuous optimization and improvement',
+                    'Peace of mind with reliable support coverage',
+                    'Enhanced ROI through expert guidance'
+                ],
+                stats: [
+                    { number: '<90s', label: 'Response Time' },
+                    { number: '24/7', label: 'Support Hours' },
+                    { number: '98.7%', label: 'First Contact Resolution' },
+                    { number: '4.9/5', label: 'Support Rating' },
+                    { number: '100%', label: 'SLA Compliance' },
+                    { number: '15min', label: 'Average Resolution' }
+                ]
+            },
+            realTimeAnalytics: {
+                icon: '📊',
+                title: 'Real-time Analytics & Insights',
+                description: 'Comprehensive analytics platform with 75+ data points, predictive insights, and real-time monitoring. Advanced reporting, custom dashboards, and AI-powered recommendations for continuous optimization.',
+                features: [
+                    'Real-time dashboard with 75+ key metrics',
+                    'Advanced predictive analytics and forecasting',
+                    'Custom reporting and automated insights delivery',
+                    'AI-powered recommendations and optimization',
+                    'Integration with business intelligence platforms',
+                    'Mobile analytics app for on-the-go monitoring',
+                    'Automated alerts and threshold notifications',
+                    'Historical data analysis and trend identification'
+                ],
+                benefits: [
+                    'Complete visibility into performance and ROI',
+                    'Data-driven decision making and optimization',
+                    'Proactive issue identification and resolution',
+                    'Improved operational efficiency and effectiveness',
+                    'Enhanced customer experience through insights',
+                    'Competitive advantage with advanced analytics',
+                    'Automated reporting saves 15+ hours weekly',
+                    'Continuous improvement through AI recommendations'
+                ],
+                stats: [
+                    { number: '75+', label: 'Data Points' },
+                    { number: '99.8%', label: 'Data Accuracy' },
+                    { number: '15+', label: 'Hours Saved Weekly' },
+                    { number: '24/7', label: 'Real-time Monitoring' },
+                    { number: '50+', label: 'Custom Reports' },
+                    { number: '100%', label: 'Data Coverage' }
+                ]
+            }
+        };
+
+        // Modal functions
+        function openModal(modalId) {
+            const data = modalData[modalId];
+            if (!data) return;
+
+            const overlay = document.getElementById('modal-overlay');
+            const icon = document.getElementById('modal-icon');
+            const title = document.getElementById('modal-title-text');
+            const body = document.getElementById('modal-body-content');
+
+            // Set modal content
+            icon.textContent = data.icon;
+            title.textContent = data.title;
+
+            // Create modal body content
+            body.innerHTML = `
+                <p class="modal-description">${data.description}</p>
+                <div class="modal-grid">
+                    <div class="modal-section">
+                        <h3>Key Features</h3>
+                        <ul class="modal-list">
+                            ${data.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Benefits</h3>
+                        <ul class="modal-list">
+                            ${data.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-stats">
+                    ${data.stats.map(stat => `
+                        <div class="modal-stat">
+                            <div class="modal-stat-number">${stat.number}</div>
+                            <div class="modal-stat-label">${stat.label}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Show modal
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+    </script>
+</body>
+</html>
